@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
@@ -18,14 +18,14 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDTO): number {
+  create(@Body(ValidationPipe) createUserDto: CreateUserDTO): number {
     return this.usersService.create(createUserDto);
   }
 
   @Patch(':id')
   update(
     @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number,
-    @Body() updateUserDto: UpdateUserDTO,
+    @Body(ValidationPipe) updateUserDto: UpdateUserDTO,
   ): object {
     return this.usersService.update(id, updateUserDto);
   }
