@@ -1,9 +1,10 @@
 # Small size
-FROM node:22.12.0-alpine3.21
+FROM node:22-alpine
 
 # Sets the working directory inside the container to /user/src/app
 WORKDIR /usr/src/app
 
+# Copy dependencies
 # Will only invalidate cache when this files change
 COPY package*.json ./ 
 
@@ -12,6 +13,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 3000
 
-CMD [ "npm", "run", "start:dev" ]
+CMD ["node", "dist/main.js"]
