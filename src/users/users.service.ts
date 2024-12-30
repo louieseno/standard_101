@@ -38,8 +38,9 @@ export class UsersService {
     const exists = await this.findOne(id);
     if (exists) {
       await this.usersRepository.update({ id }, user);
+      return { ...exists, ...user };
     }
-    return exists;
+
   }
 
   async delete(id: number): Promise<User> {

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from '../users.service';
-import { User, UserRole } from '../entities/user.entity';
-import { UpdateUserEntity } from '../entities/update_user.entity';
-import { UsersController } from '../users.controller';
+import { UsersService } from './users.service';
+import { User, UserRole } from './entities/user.entity';
+import { UpdateUserEntity } from './entities/update_user.entity';
+import { UsersController } from './users.controller';
 import { NotFoundException } from '@nestjs/common';
 
 const mockId = 1;
@@ -20,9 +20,6 @@ const mockPartialUser: UpdateUserEntity = {
   "email": "andrew@example.com",
   "update_at": new Date(),
 }
-
-const mockAllUser = { data: [] };
-const mockIdError = 'error';
 class MockedUsersModel {
   constructor(private _: any) { }
   new = jest.fn().mockResolvedValue({});
@@ -31,20 +28,6 @@ class MockedUsersModel {
   static create = jest.fn().mockReturnValue(mockUser);
   static update = jest.fn().mockReturnValue({ ...mockUser, ...mockPartialUser });
   static delete = jest.fn().mockReturnValue(mockUser);
-
-  // static save = jest.fn().mockResolvedValue(mockUser);
-  // static find = jest.fn().mockReturnThis();
-  // static create = jest.fn().mockReturnValue(mockUser);
-  // static findOneAndDelete = jest.fn().mockImplementation((id: string) => {
-  //   if (id == mockIdError) throw new NotFoundException();
-  //   return this;
-  // });
-  // static exec = jest.fn().mockReturnValue(mockUser);
-  // static select = jest.fn().mockReturnThis();
-  // static findOne = jest.fn().mockImplementation((id: string) => {
-  //   if (id == mockIdError) throw new NotFoundException();
-  //   return this;
-  // });
 }
 
 
