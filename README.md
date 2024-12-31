@@ -1,99 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# USERS API with NestJS, PostgreSQL, TypeORM, Docker
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is a **Users API** built with **NestJS**. The project demonstrates how to handle user management, including creating, reading, updating, and deleting user records. The API uses **PostgreSQL** as the database, **TypeORM** as the ORM, and **Docker** for containerization.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **User CRUD Operations** (Create, Read, Update, Delete)
+- **PostgreSQL** database with **TypeORM** integration
+- **Docker** containerization for easy setup and deployment
+- **Automated testing** with **Jest**
+- **Swagger Documentation** for API endpoints
 
-## Project setup
+---
 
-```bash
-$ npm install
-```
+## Table of Contents
 
-## Compile and run the project
+1. [Installation](#installation)
+2. [Project Structure](#project-structure)
+4. [Running with Docker](#running-with-docker)
+5. [Testing](#testing)
+6. [Environment Variables](#environment-variables)
+7. [Swagger Documentation](#swagger-documentation)
+
+---
+
+## Installation
+
+To get started, clone the repository:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/louieseno/standard_101.git
+cd standard_101
 ```
 
-## Run tests
+Install the dependencies:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
+## Project Structure
+```bash
+users-api/
+├── src/
+│   ├── modules/
+│   │   └── users/
+│   │       ├── entities/
+│   │       ├── users.controller.ts
+│   │       ├── users.service.spec.ts
+|   |       ├── users.service.ts
+│   │       └── users.module.ts
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   └── main.ts
+├── .env
+├── Dockerfile
+├── docker-compose.yml
+├── jest.config.js
+├── tsconfig.json
+└── README.md
+```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## Running with Docker
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Running with Docker
+This project comes with a `docker-compose.yml` file that sets up the required services: __PostgreSQL__ and the __NestJS__ app.
+
+### Steps to run with Docker:
+  1. Build the Docker containers:
+  ```bash
+  docker-compose build --no-cache
+  ```
+
+  2. Start the services (PostgreSQL and NestJS app):
+
+  ```bash
+  docker-compose up
+  ```
+
+The application will be available at http://localhost:3000.
+
+By default, Docker will run the PostgreSQL database and expose it on port 5432. The NestJS API will run on port 3000.
+
+### Docker Compose Environment Variables
+You can adjust the environment variables for __PostgreSQL__ and the __NestJS__ app by modifying the `.env` file.
+
+Example `.env`:
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+DB_TYPE=postgres
+POSTGRES_HOST=""
+POSTGRES_USER=""
+POSTGRES_PASSWORD=""
+POSTGRES_DATABASE=""
+POSTGRES_PORT=5432
+ENV=DEV
+
+API_PORT=3000
+API_VERSION=v1
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Testing
+The project uses __Jest__ for testing.
 
-## Resources
+Run Tests
+You can run the unit tests with the following command:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npm run test
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+For integration tests, use:
 
-## Support
+```bash
+npm run test:e2e
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Swagger Documentation
 
-## Stay in touch
+NestJS comes with Swagger documentation out-of-the-box. To view the API documentation:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Run the app with:
+
+```bash
+npm run start:dev
+```
+
+Navigate to:
+
+```bash
+http://localhost:3000/api/v1
+```
+
+You will see the interactive API documentation where you can explore the available endpoints.
 
 ## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

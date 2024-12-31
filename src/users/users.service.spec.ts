@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { User, UserRole } from './entities/user.entity';
-import { UpdateUserEntity } from './entities/update_user.entity';
+import { UpdateUser } from './entities/update_user.entity';
 import { UsersController } from './users.controller';
 import { NotFoundException } from '@nestjs/common';
 
@@ -15,7 +15,7 @@ const mockUser: User = {
   "update_at": new Date(),
 }
 
-const mockPartialUser: UpdateUserEntity = {
+const mockPartialUser: UpdateUser = {
   "name": "andrew kuminga",
   "email": "andrew@example.com",
   "update_at": new Date(),

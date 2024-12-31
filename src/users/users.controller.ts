@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User, UserRole } from './entities/user.entity';
-import { UpdateUserEntity } from './entities/update_user.entity';
+import { UpdateUser } from './entities/update_user.entity';
 import { ApiOperation, ApiQuery } from '@nestjs/swagger';
 
 @Controller('users')
@@ -33,7 +33,7 @@ export class UsersController {
   @ApiOperation({ summary: "Update a user property/properties" })
   update(
     @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number,
-    @Body(ValidationPipe) user: UpdateUserEntity,
+    @Body(ValidationPipe) user: UpdateUser,
   ): Promise<User> {
     return this.usersService.update(id, user);
   }
