@@ -1,8 +1,8 @@
 {
   "name": "standard_101",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "CRUD API - Testing Nest JS workflow",
+  "author": "louie john seno",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e:docker": "docker-compose -f docker-compose-e2e.yaml up --exit-code-from nestapp"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
