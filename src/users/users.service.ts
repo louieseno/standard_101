@@ -44,8 +44,8 @@ export class UsersService {
   }
 
   async delete(id: number): Promise<User> {
-    const user = this.findOne(id);
-    this.usersRepository.delete(id);
+    const user = await this.findOne(id);
+    await this.usersRepository.delete(id);
     return user;
   }
 }

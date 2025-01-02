@@ -58,6 +58,12 @@ describe('Users Module (E2E)', () => {
     expect(response.body.length).toBeGreaterThan(0);
   });
 
+  it('should throw error for non-existing user with given role filter', async () => {
+    await request(app.getHttpServer())
+      .get('/users?role=ADMIN')
+      .expect(404);
+  });
+
   it('should retrieve a user by ID', async () => {
     const response = await request(app.getHttpServer())
       .get(`/users/${userId}`)
@@ -93,5 +99,29 @@ describe('Users Module (E2E)', () => {
     await request(app.getHttpServer())
       .delete(`/users/${userId}`)
       .expect(200);
+
+    await request(app.getHttpServer())
+      .get(`/users/${userId}`)
+      .expect(404);
+  });
+
+  it('should throw not acceptable id parameters for update, delete, and get', async () => {
+    const nonNumericId = 'abc';
+    const updatePayload = {
+      name: 'Andrew Kuminga',
+      email: 'andrew@example.com',
+    };
+    await request(app.getHttpServer())
+      .patch(`/users/${nonNumericId}`)
+      .send(updatePayload)
+      .expect(406);
+
+    await request(app.getHttpServer())
+      .delete(`/users/${nonNumericId}`)
+      .expect(406);
+
+    await request(app.getHttpServer())
+      .get(`/users/${nonNumericId}`)
+      .expect(406);
   });
 });
