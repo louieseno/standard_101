@@ -5,6 +5,11 @@
   "author": "louie john seno",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "yarn": "Please use `npm`",
+    "npm": ">=10.8.2",
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
