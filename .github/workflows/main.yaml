@@ -8,6 +8,15 @@ on:
 
 env:
   NODE_VERSION: 22.12.0
+  DB_TYPE: ${{ secrets.DB_TYPE }}
+  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+  ENV: ${{ secrets.ENV }} 
+  API_PORT: ${{ secrets.API_PORT }}
+  API_VERSION: ${{ secrets.API_VERSION }}
 
 jobs:
   integration-test:
@@ -17,9 +26,9 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
         ports:
           - 5432:5432
         options: >-
